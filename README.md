@@ -1,81 +1,153 @@
-# Agentic Universe: Junior SDE Take-Home (Data & Workflow)
+# Interaction Ledger & Reporting Pipeline
 
-Thanks for your interest in Agentic Universe. We build AI voice agents for insurers, lenders and
-consumer brands across India and APAC. Our platform has three layers:
+## Project Overview
 
-- **Data:** leads, call events, dispositions and the interaction ledger that every client report
-  is built on.
-- **Workflow:** campaigns, scheduling, dialling, retries and callbacks, all orchestrated durably.
-- **Application:** dashboards, consoles and APIs.
+This project implements a data engineering pipeline designed to ingest, validate, process, and manage lead and interaction event data.
 
-This take-home focuses on **data** and **workflow**. **Pick one assignment.** Don't do both.
+The pipeline focuses on building a reliable interaction ledger, maintaining data consistency, handling duplicate records, validating incoming data, and generating accurate business reports.
 
-| | Assignment | You'll mostly be doing |
-|---|---|---|
-| **A** | [Interaction Ledger & Reporting Pipeline](assignment-a-data/README.md) | Messy-data ingestion, schema design, idempotent pipelines, exact metrics |
-| **B** | [Durable Campaign Dispatcher](assignment-b-workflow/README.md) | State machines, idempotency, failure handling, scheduling under constraints |
+The solution is developed as part of the Agentic Universe Junior SDE Take-Home Assignment.
 
-Both are judged on the same bar. Pick the one that excites you more.
+## Objectives
 
-## Ground rules
+- Ingest lead and interaction event data from input files.
+- Validate incoming records and handle invalid data.
+- Prevent duplicate event processing.
+- Maintain a reliable interaction ledger.
+- Implement database schema and data relationships.
+- Ensure idempotent pipeline execution.
+- Generate business reports and data quality metrics.
+- Handle sensitive information responsibly.
 
-- **Time box:** plan for about **6–8 focused hours**. You have **72 hours** from when you receive
-  this. We know you have a life. If you run out of time, stop and tell us in `SUBMISSION.md`
-  what you'd do next. A well-explained partial solution beats a rushed complete one.
-- **Language:** Python 3.11+. Use any libraries you like; list them in `requirements.txt`.
-- **AI tools** (Claude, Cursor, Copilot, ChatGPT...) are **allowed**, as they would be on the
-  job. You must fill in [`AI_USAGE.md`](AI_USAGE.md) honestly. In the follow-up interview we'll
-  ask you to walk through your code and change it live. Submit only code you understand and can
-  defend.
-- **Ambiguity is intentional in places.** When the spec doesn't decide something, make a
-  reasonable call and write it down in `SUBMISSION.md`. Don't wait for an answer from us.
-- **Synthetic data only.** Everything here is generated. No real customer data is involved.
+## Technology Stack
 
-## Getting started
+- **Programming Language:** Python 3.11+
+- **Data Processing:** Pandas
+- **Database:** SQLite / PostgreSQL (as implemented)
+- **Data Format:** CSV, JSONL
+- **Testing:** Pytest
+- **Version Control:** Git and GitHub
 
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-# then follow your chosen assignment's README
+## Project Structure
+
+```text
+interaction-ledger-reporting-pipeline/
+│
+├── solution/
+│   └── Source code and pipeline implementation
+│
+├── tests/
+│   └── Test cases
+│
+├── README.md
+├── SUBMISSION.md
+├── AI_USAGE.md
+├── requirements.txt
+└── .gitignore
 ```
 
-`docker-compose.yml` starts a local Postgres if you want one (`docker compose up -d`). SQLite
-is equally acceptable.
+*The structure above describes the intended organization; adjust it to match the actual files in the repository.*
 
-## What to submit
+## Key Features
 
-1. Push your work to a **private** GitHub or GitLab repository. Start from this repo and keep
-   its structure. Put your code in `solution/` (or a similar top-level folder) and keep the
-   original files unmodified.
-2. Your repo must include:
-   - `SUBMISSION.md`: fill in the template provided
-   - `AI_USAGE.md`: fill in the template provided
-   - Exact setup and run commands that work from a clean clone
-   - Tests, runnable with one command (for example `pytest`)
-3. Give read access to **`[[REVIEWER_HANDLES]]`** and email the repo link to
-   **`[[SUBMISSION_EMAIL]]`** before the deadline.
+### 1. Data Ingestion
+Reads lead records and interaction events from the provided input files.
 
-Please **don't** publish your solution publicly, and **don't** commit generated data, `.env`
-files, or databases.
+### 2. Data Validation
+Checks incoming records for missing values, invalid formats, and data inconsistencies.
 
-## What happens next
+### 3. Duplicate Handling
+Identifies duplicate records and prevents repeated processing.
 
-If your submission clears the bar, we'll schedule a **45-minute technical conversation**:
+### 4. Interaction Ledger
+Maintains a structured record of interaction events for reliable reporting and tracking.
 
-- 15 min: you walk us through your design and the decisions in `SUBMISSION.md`
-- 20 min: we change a requirement and you extend your code live (AI tools allowed; screen
-  share)
-- 10 min: your questions for us
+### 5. Idempotency
+Ensures that running the pipeline multiple times does not incorrectly duplicate previously processed records.
 
-## What we look for
+### 6. Reporting
+Generates reports containing business metrics and data quality information.
 
-| Signal | What good looks like |
-|---|---|
-| Correctness | It produces the right answer on data and seeds you haven't seen |
-| Robustness | It behaves sensibly when inputs are dirty, things fail, or it's run twice |
-| Design | Clear data and state model; you can explain why it's safe |
-| Code quality | Readable, organised, tested where it matters |
-| Communication | Honest about trade-offs, assumptions and what's missing |
-| Ownership | You made decisions instead of waiting to be told |
+## Installation and Setup
 
-Good luck. We're looking forward to reading your work.
+Clone the repository:
+
+```bash
+git clone https://github.com/galla794/interaction-ledger-reporting-pipeline.git
+
+cd interaction-ledger-reporting-pipeline
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment:
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Running the Project
+
+Run the pipeline using the actual entry-point script provided in the `solution/` directory.
+
+Example:
+
+```bash
+python solution/main.py
+```
+
+## Running Tests
+
+```bash
+pytest -v
+```
+
+## Generated Reports
+
+The pipeline is designed to produce reporting outputs such as:
+
+- Batch Summary
+- Daily Overview
+- Lead Report
+- Rejected Records
+- Data Quality Report
+
+Refer to the implementation for the exact output filenames and formats.
+
+## Design Considerations
+
+- Data consistency and integrity
+- Duplicate prevention
+- Idempotent processing
+- Input validation
+- Database constraints
+- Responsible handling of sensitive information
+- Maintainable and testable code
+
+## Documentation
+
+- **SUBMISSION.md:** Implementation approach, design decisions, assumptions, trade-offs, and future improvements.
+- **AI_USAGE.md:** Disclosure of AI tools used during development.
+
+## Author
+
+**Galla Jayadev**
+
+GitHub: https://github.com/galla794
+
+---
+
+**Project:** Interaction Ledger & Reporting Pipeline  
+**Assignment:** Agentic Universe – Junior SDE Take-Home Assignment
