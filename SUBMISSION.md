@@ -1,39 +1,72 @@
 # Submission
 
-> Replace everything in _italics_. Be concise: bullet points are fine. We read every word.
-
 ## Candidate
-- **Name:** _
-- **Assignment chosen:** _A (Data) / B (Workflow)_
-- **Time spent (honest estimate):** _e.g. 7h_
+- **Name:** Galla Jayadev
+- **Assignment chosen:** 13-11-2026
+- **Time spent (honest estimate): 7 hours
 
-## How to run
+## How to Run
+
 ```bash
-# exact commands from a clean clone: setup, run, test
+pip install -r requirements.txt
+python solution/main.py
+pytest -v
 ```
 
 ## Design
-_Your architecture in a few paragraphs, plus a diagram if it helps. For A: your database schema
-and why. For B: your lead state machine (ASCII or Mermaid) and how you guarantee at-most-once
-dialling._
 
-## Decisions & assumptions
-_Every place where you made a call the spec didn't make for you, and why._
+The solution follows a structured data engineering pipeline.
+
+- Ingests lead and interaction event data.
+- Validates incoming records.
+- Handles duplicate and invalid records.
+- Stores processed data in a database.
+- Maintains interaction records for reliable reporting.
+- Generates the required business reports.
+
+The design focuses on data integrity, consistency and reliable processing.
+
+## Decisions & Assumptions
 
 | Decision | Why | Alternative considered |
 |---|---|---|
-| _ | _ | _ |
+| Separate ingestion and processing | Easier maintenance | Single processing script |
+| Validate input records | Maintain data quality | Direct processing |
+| Handle duplicate events | Avoid repeated records | Allow duplicates |
+| Use database constraints | Maintain data integrity | Application-only validation |
+| Generate structured reports | Easy analysis | Manual reporting |
 
-## Failure modes considered
-_What can go wrong and how your solution handles it (bad input, re-runs, crashes, timeouts,
-duplicates...). Also list anything you know is **not** handled._
+## Failure Modes Considered
+
+- Invalid or missing input data.
+- Duplicate records and events.
+- Database connection failures.
+- Repeated pipeline execution.
+- Unexpected input formats.
+
+These scenarios were considered during implementation. Additional crash recovery and failure testing could improve reliability.
 
 ## Testing
-_What you tested, what you didn't, and why._
+
+- Reviewed Python implementation.
+- Checked data validation and processing.
+- Inspected database loading.
+- Reviewed duplicate-handling logic.
+- Used GitHub Copilot for test-case suggestions and testing assistance.
+- Used ChatGPT for understanding requirements and debugging.
+
+Additional edge-case and failure-recovery testing remains an area for improvement.
 
 ## Results
-_For A: timings, and anything surprising in the data. For B: your `/admin/report` summary from
-a full run, ideally one that includes a `kill -9`._
 
-## If I had another day
-_What you'd do next, in priority order._
+The solution implements the data processing workflow and generates structured reporting outputs.
+
+The generated reports and actual execution results should be verified against the final pipeline run before submission.
+
+## If I Had Another Day
+
+1. Improve automated test coverage.
+2. Perform additional idempotency testing.
+3. Strengthen database constraints.
+4. Improve error handling and logging.
+5. Test with larger datasets and optimize performance.
