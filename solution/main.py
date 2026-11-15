@@ -50,14 +50,13 @@ def _existing_file_digest(path):
             (resolved_path,),
         ).fetchone()
 
-    if row is not None:
+        if row is not None:
         if row["sha256"] != digest:
-            raise ValueError(
-                f"Input file changed after ingestion: {path}. "
-                "Use a fresh database to ingest a changed drop."
+            print(
+                f"WARNING: {path} changed since it was ingested; skipping. "
+                "Delete solution/pipeline.db to re-ingest from scratch."
             )
         return None
-
     return resolved_path, digest
 
 
