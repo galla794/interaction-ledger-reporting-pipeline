@@ -1,15 +1,21 @@
 # Assignment A solution
 
-Run commands from the `solution` directory (install the repository's
-`requirements.txt` first):
+From the repository root:
 
-```powershell
-python main.py ingest ..\data\drop_1
-python main.py ingest ..\data\drop_2
-python main.py report --out ..\reports
-python -m pytest -q
+```bash
+pip install -r requirements.txt
+python assignment-a-data/tools/generate_data.py --seed 42 --scale small --out data
 ```
 
+Then run these from the `solution` directory:
+
+```bash
+cd solution
+python main.py ingest ../data/drop_1
+python main.py ingest ../data/drop_2
+python main.py report --out ../reports
+python -m pytest -q
+```
 `python main.py run` ingests the configured `data\drop_1` and `data\drop_2`
 directories before writing reports to `..\reports`. Input files are recorded by
 resolved path and SHA-256, so an identical drop can be submitted again without
